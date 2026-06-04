@@ -1,4 +1,5 @@
 import { useToast } from '../../context/ToastContext';
+import { useApp } from '../../context/AppContext';
 
 export default function BlockchainLogsPage() {
   const { showToast } = useToast();
