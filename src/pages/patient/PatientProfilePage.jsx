@@ -65,7 +65,7 @@ export default function PatientProfilePage() {
             style={{ display: 'none' }} 
             accept="image/*" 
             onChange={() => {
-              const newUrl = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
+              const newUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${Math.random()}`;
               dispatch({ type: 'SET_AVATAR', payload: newUrl });
               showToast('success', 'Photo Updated', 'Your profile picture has been changed.');
             }}

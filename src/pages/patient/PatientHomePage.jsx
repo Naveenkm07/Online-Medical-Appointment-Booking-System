@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
 import { upcomingAppointments } from '../../data/mockAppointments';
 
 export default function PatientHomePage() {
   const navigate = useNavigate();
+  const { state } = useApp();
+  const patientName = state.userProfile ? state.userProfile.firstName : (state.user?.name ? state.user.name.split(' ')[0] : 'Patient');
 
   const kpiStats = [
     { label: 'Total Appointments', value: '24', change: '+3 this month', up: true, icon: '📅' },
@@ -32,7 +35,7 @@ export default function PatientHomePage() {
         <div className="greeting-content">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
-              <div className="greeting-title">Good Evening, Arjun! 👋</div>
+              <div className="greeting-title">Good Evening, {patientName}! 👋</div>
               <div className="greeting-sub">You have 2 upcoming appointments this week.</div>
               <div className="greeting-actions">
                 <button className="greeting-quick-btn" onClick={() => navigate('/patient/symptom-input')}>🔍 Find a Doctor</button>
