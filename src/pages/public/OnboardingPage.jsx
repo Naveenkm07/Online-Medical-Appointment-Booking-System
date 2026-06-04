@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useToast } from '../../context/ToastContext';
-import { Logo } from '../../components/ui/Logo';
 
 export default function OnboardingPage() {
   const navigate = useNavigate();
@@ -42,8 +41,11 @@ export default function OnboardingPage() {
     <div className="login-container">
       <div className="login-card" style={{ maxWidth: '600px', width: '100%', padding: '40px' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <Logo />
-          <h4 style={{ fontFamily: 'var(--font-heading)', marginTop: '24px' }}>Welcome to OMABS</h4>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+            <div style={{ background: 'var(--primary-600)', color: 'white', width: '32px', height: '32px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>O</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.5px' }}>OMABS</div>
+          </div>
+          <h4 style={{ fontFamily: 'var(--font-heading)', marginTop: '8px' }}>Welcome to OMABS</h4>
           <p style={{ color: 'var(--text-secondary)' }}>Let's set up your patient profile</p>
         </div>
         
