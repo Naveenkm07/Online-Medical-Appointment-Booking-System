@@ -22,18 +22,41 @@ export default function PatientProfilePage() {
     ['Health Tips', 'Email'],
   ];
 
+  const profile = state.userProfile || {
+    firstName: 'Arjun',
+    lastName: 'Sharma',
+    email: 'arjun.sharma@email.com',
+    phone: '+91 98765 43210',
+    dob: '1990-06-15',
+    bloodGroup: 'O+',
+    address: '42, MG Road, Bangalore — 560001'
+  };
+
+  const [formData, setFormData] = useState(profile);
+
+  const handleChange = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const saveProfile = () => {
+    dispatch({ type: 'SET_USER_PROFILE', payload: formData });
+    // Also update TopNav name
+    dispatch({ type: 'SET_USER', payload: { name: `${formData.firstName} ${formData.lastName}` } });
+    showToast('success', 'Saved!', 'Profile updated successfully.');
+  };
+
   return (
     <div style={{ maxWidth: '700px' }}>
       <div className="card mb-6" style={{ textAlign: 'center', padding: '40px' }}>
         <div className="avatar avatar-2xl" style={{ margin: '0 auto 16px', overflow: 'hidden' }}>
           <img 
             src={state.avatar} 
-            alt="Arjun" 
+            alt={formData.firstName} 
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
           />
         </div>
-        <h4 style={{ fontFamily: 'var(--font-heading)' }}>Arjun Sharma</h4>
-        <p style={{ color: 'var(--text-secondary)' }}>arjun.sharma@email.com</p>
+        <h4 style={{ fontFamily: 'var(--font-heading)' }}>{formData.firstName} {formData.lastName}</h4>
+        <p style={{ color: 'var(--text-secondary)' }}>{formData.email}</p>
         <span className="badge badge-primary mt-4">Patient</span>
         <div style={{ marginTop: '16px' }}>
           <input 
@@ -57,17 +80,17 @@ export default function PatientProfilePage() {
         <h6 style={{ fontFamily: 'var(--font-heading)', marginBottom: '20px' }}>Personal Information</h6>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div className="form-row">
-            <div className="input-group"><label className="input-label">First Name</label><input className="input" defaultValue="Arjun" /></div>
-            <div className="input-group"><label className="input-label">Last Name</label><input className="input" defaultValue="Sharma" /></div>
+            <div className="input-group"><label className="input-label">First Name</label><input className="input" name="firstName" value={formData.firstName} onChange={handleChange} /></div>
+            <div className="input-group"><label className="input-label">Last Name</label><input className="input" name="lastName" value={formData.lastName} onChange={handleChange} /></div>
           </div>
-          <div className="input-group"><label className="input-label">Email</label><input className="input" type="email" defaultValue="arjun.sharma@email.com" /></div>
-          <div className="input-group"><label className="input-label">Phone</label><input className="input" defaultValue="+91 98765 43210" /></div>
+          <div className="input-group"><label className="input-label">Email</label><input className="input" type="email" name="email" value={formData.email} onChange={handleChange} /></div>
+          <div className="input-group"><label className="input-label">Phone</label><input className="input" name="phone" value={formData.phone} onChange={handleChange} /></div>
           <div className="form-row">
-            <div className="input-group"><label className="input-label">Date of Birth</label><input className="input" type="date" defaultValue="1990-06-15" /></div>
-            <div className="input-group"><label className="input-label">Blood Group</label><input className="input" defaultValue="O+" /></div>
+            <div className="input-group"><label className="input-label">Date of Birth</label><input className="input" type="date" name="dob" value={formData.dob} onChange={handleChange} /></div>
+            <div className="input-group"><label className="input-label">Blood Group</label><input className="input" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} /></div>
           </div>
-          <div className="input-group"><label className="input-label">Address</label><input className="input" defaultValue="42, MG Road, Bangalore — 560001" /></div>
-          <button className="btn btn-gradient btn-lg" onClick={() => showToast('success', 'Saved!', 'Profile updated successfully.')}>Save Changes</button>
+          <div className="input-group"><label className="input-label">Address</label><input className="input" name="address" value={formData.address} onChange={handleChange} /></div>
+          <button className="btn btn-gradient btn-lg" onClick={saveProfile}>Save Changes</button>
         </div>
       </div>
       

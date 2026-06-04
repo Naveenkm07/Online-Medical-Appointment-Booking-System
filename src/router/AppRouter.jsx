@@ -51,7 +51,7 @@ import NotFoundPage from '../pages/utility/NotFoundPage';
 import MaintenancePage from '../pages/utility/MaintenancePage';
 import OfflinePage from '../pages/utility/OfflinePage';
 import HelpCenterPage from '../pages/utility/HelpCenterPage';
-import OnboardingPage from '../pages/utility/OnboardingPage';
+import OnboardingPage from '../pages/public/OnboardingPage';
 import DesignSystemPage from '../pages/utility/DesignSystemPage';
 
 function ProtectedRoute({ children, allowedRoles }) {

@@ -6,7 +6,7 @@ import { routeToPortal } from '../../utils/routeToPortal';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { dispatch } = useApp();
+  const { state, dispatch } = useApp();
   const { showToast } = useToast();
   const [email, setEmail] = useState('');
 
@@ -20,7 +20,13 @@ export default function LoginPage() {
     dispatch({ type: 'SET_USER', payload: { name } });
     showToast('success', 'Welcome back!', `Signed in as ${name}`);
 
-    setTimeout(() => navigate(routeToPortal(role)), 800);
+    setTimeout(() => {
+      if (role === 'patient' && !state.userProfile) {
+        navigate('/onboarding');
+      } else {
+        navigate(routeToPortal(role));
+      }
+    }, 800);
   };
 
   const handleGoogleSignIn = () => {
@@ -28,7 +34,11 @@ export default function LoginPage() {
     setTimeout(() => {
       dispatch({ type: 'SET_ROLE', payload: 'patient' });
       dispatch({ type: 'SET_USER', payload: { name: 'Google User' } });
-      navigate(routeToPortal('patient'));
+      if (!state.userProfile) {
+        navigate('/onboarding');
+      } else {
+        navigate(routeToPortal('patient'));
+      }
     }, 1500);
   };
 

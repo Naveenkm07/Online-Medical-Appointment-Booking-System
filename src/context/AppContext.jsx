@@ -5,6 +5,7 @@ const initialState = {
   theme: localStorage.getItem('omabs-theme') || 'light',
   role: null,            // 'patient' | 'doctor' | 'admin'
   user: null,            // { name: string }
+  userProfile: JSON.parse(localStorage.getItem('omabs-profile')) || null, // { firstName, lastName, email, phone, dob, bloodGroup, address }
   avatar: localStorage.getItem('omabs-avatar') || 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
   chatbotOpen: false,
   sidebarCollapsed: false,
@@ -17,6 +18,9 @@ function reducer(state, action) {
       return { ...state, theme: action.payload };
     case 'SET_USER':
       return { ...state, user: action.payload };
+    case 'SET_USER_PROFILE':
+      localStorage.setItem('omabs-profile', JSON.stringify(action.payload));
+      return { ...state, userProfile: action.payload };
     case 'SET_AVATAR':
       localStorage.setItem('omabs-avatar', action.payload);
       return { ...state, avatar: action.payload };
