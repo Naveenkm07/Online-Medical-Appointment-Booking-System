@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export default function SystemHealthPage() {
   const stats = [
     { label: 'API Uptime', value: '99.3%', color: 'success' },
@@ -22,6 +24,8 @@ export default function SystemHealthPage() {
     { service: 'ML Inference API', status: 'operational', latency: '89ms' },
     { service: 'CDN', status: 'operational', latency: '24ms' },
   ];
+
+  const [chartData] = useState(() => Array(30).fill(0).map(() => 20 + Math.floor(Math.random() * 80)));
 
   return (
     <>
@@ -52,9 +56,9 @@ export default function SystemHealthPage() {
         <div className="chart-container">
           <div className="chart-header"><div className="chart-title">API Response Latency (Last 30 min)</div></div>
           <div className="chart-body">
-            {Array(30).fill(0).map((_, i) => (
+            {chartData.map((v, i) => (
               <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', height: '100%' }}>
-                <div style={{ width: '100%', borderRadius: '2px 2px 0 0', background: 'linear-gradient(to top,var(--teal-400),var(--primary-400))', height: `${20 + Math.floor(Math.random() * 80)}%` }}></div>
+                <div style={{ width: '100%', borderRadius: '2px 2px 0 0', background: 'linear-gradient(to top,var(--teal-400),var(--primary-400))', height: `${v}%` }}></div>
               </div>
             ))}
           </div>

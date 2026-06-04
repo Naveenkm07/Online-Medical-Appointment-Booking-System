@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useToast } from '../../context/ToastContext';
 
 export default function AvailabilityPage() {

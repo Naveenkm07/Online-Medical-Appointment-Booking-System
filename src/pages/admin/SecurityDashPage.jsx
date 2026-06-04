@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useToast } from '../../context/ToastContext';
 
 export default function SecurityDashPage() {
@@ -23,6 +24,8 @@ export default function SecurityDashPage() {
     { user: 'Dr. Priya Mehta', role: 'doctor', ip: '103.21.44.89', start: '45min ago', suspicious: false },
     { user: 'Unknown', role: '—', ip: '194.165.0.1', start: '12min ago', suspicious: true },
   ];
+
+  const [chartData] = useState(() => Array(30).fill(0).map(() => 10 + Math.floor(Math.random() * 90)));
 
   return (
     <>
@@ -53,9 +56,9 @@ export default function SecurityDashPage() {
         <div className="chart-container">
           <div className="chart-header"><div className="chart-title">Failed Login Attempts (30 Days)</div></div>
           <div className="chart-body">
-            {Array(30).fill(0).map((_, i) => (
+            {chartData.map((v, i) => (
               <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', height: '100%' }}>
-                <div style={{ width: '100%', borderRadius: '2px 2px 0 0', background: 'linear-gradient(to top,var(--danger-400),var(--warning-400))', height: `${10 + Math.floor(Math.random() * 90)}%` }}></div>
+                <div style={{ width: '100%', borderRadius: '2px 2px 0 0', background: 'linear-gradient(to top,var(--danger-400),var(--warning-400))', height: `${v}%` }}></div>
               </div>
             ))}
           </div>

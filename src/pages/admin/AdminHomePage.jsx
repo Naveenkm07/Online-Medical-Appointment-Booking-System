@@ -1,8 +1,6 @@
-import { useToast } from '../../context/ToastContext';
+import { useState } from 'react';
 
 export default function AdminHomePage() {
-  const { showToast } = useToast();
-
   const stats = [
     { label: 'Total Users', value: '50,247', change: '+127 today', icon: '👥', up: true },
     { label: 'Active Doctors', value: '12,834', change: '+23 verified', icon: '👨‍⚕️', up: true },
@@ -25,6 +23,8 @@ export default function AdminHomePage() {
     { icon: '🤖', msg: 'ML recommendation engine served 347 queries in last hour', time: '25 min ago' },
   ];
 
+  const [chartData] = useState(() => Array(30).fill(0).map(() => 30 + Math.floor(Math.random() * 70)));
+
   return (
     <>
       <div className="grid-4 mb-6">
@@ -42,14 +42,11 @@ export default function AdminHomePage() {
         <div className="chart-container">
           <div className="chart-header"><div className="chart-title">Platform Booking Volume (30 Days)</div></div>
           <div className="chart-body">
-            {Array(30).fill(0).map((_, i) => {
-              const v = 30 + Math.floor(Math.random() * 70); // Just mock random logic similar to original
-              return (
-                <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', height: '100%' }}>
-                  <div className="bar-chart-bar" style={{ height: `${v}%` }}></div>
-                </div>
-              );
-            })}
+            {chartData.map((v, i) => (
+              <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', height: '100%' }}>
+                <div className="bar-chart-bar" style={{ height: `${v}%` }}></div>
+              </div>
+            ))}
           </div>
         </div>
         

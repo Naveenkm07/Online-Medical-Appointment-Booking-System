@@ -12,7 +12,7 @@ export default function MyAppointmentsPage() {
   const [selectedAppt, setSelectedAppt] = useState(null);
 
   // Combine and format data based on filter
-  let baseAppointments = [];
+  let baseAppointments;
   if (filter === 'upcoming') {
     baseAppointments = upcomingAppointments.map((a, i) => ({ ...a, id: `APT-100${i+1}` }));
   } else if (filter === 'past') {

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useToast } from '../../context/ToastContext';
 
 export default function ApptAnalyticsPage() {
@@ -18,6 +19,9 @@ export default function ApptAnalyticsPage() {
     ['Neurology', 52],
     ['Gynecology', 48],
   ];
+
+  const [chartData] = useState(() => Array(30).fill(0).map(() => 40 + Math.floor(Math.random() * 60)));
+  const [heatMapData] = useState(() => Array(12 * 7).fill(0).map(() => Math.random()));
 
   return (
     <>
@@ -48,9 +52,9 @@ export default function ApptAnalyticsPage() {
         <div className="chart-container">
           <div className="chart-header"><div className="chart-title">Daily Booking Volume</div></div>
           <div className="chart-body">
-            {Array(30).fill(0).map((_, i) => (
+            {chartData.map((v, i) => (
               <div key={i} style={{ flex: 1, display: 'flex', alignItems: 'flex-end', height: '100%' }}>
-                <div className="bar-chart-bar" style={{ height: `${40 + Math.floor(Math.random() * 60)}%` }}></div>
+                <div className="bar-chart-bar" style={{ height: `${v}%` }}></div>
               </div>
             ))}
           </div>
@@ -59,10 +63,9 @@ export default function ApptAnalyticsPage() {
         <div className="chart-container">
           <div className="chart-header"><div className="chart-title">Peak Hours Heatmap</div></div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12,1fr)', gap: '3px', paddingTop: '8px' }}>
-            {Array(12 * 7).fill(0).map((_, i) => {
-              const v = Math.random();
-              return <div key={i} style={{ height: '18px', borderRadius: '3px', background: `rgba(79,70,229,${v.toFixed(2)})` }}></div>;
-            })}
+            {heatMapData.map((v, i) => (
+              <div key={i} style={{ height: '18px', borderRadius: '3px', background: `rgba(79,70,229,${v.toFixed(2)})` }}></div>
+            ))}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: 'var(--text-xs)', color: 'var(--text-tertiary)' }}>
             <span>8 AM</span><span>12 PM</span><span>4 PM</span><span>8 PM</span>
