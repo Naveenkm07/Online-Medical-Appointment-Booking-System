@@ -27,10 +27,9 @@ export default function TopNav({ title, actions = null }) {
         {state.role === 'patient' ? (
           <div className="avatar avatar-md" style={{ cursor: 'pointer', overflow: 'hidden' }}>
             <img 
-              src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+              src={state.avatar} 
               alt="Profile" 
               style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              id="topnav-avatar"
             />
           </div>
         ) : (

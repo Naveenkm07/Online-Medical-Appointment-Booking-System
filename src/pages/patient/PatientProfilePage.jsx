@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useToast } from '../../context/ToastContext';
+import { useApp } from '../../context/AppContext';
 
 export default function PatientProfilePage() {
   const { showToast } = useToast();
+  const { state, dispatch } = useApp();
 
   const [toggles, setToggles] = useState({
     'Appointment Reminders': true,
@@ -25,10 +27,9 @@ export default function PatientProfilePage() {
       <div className="card mb-6" style={{ textAlign: 'center', padding: '40px' }}>
         <div className="avatar avatar-2xl" style={{ margin: '0 auto 16px', overflow: 'hidden' }}>
           <img 
-            src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+            src={state.avatar} 
             alt="Arjun" 
             style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            id="profile-avatar"
           />
         </div>
         <h4 style={{ fontFamily: 'var(--font-heading)' }}>Arjun Sharma</h4>
@@ -42,9 +43,7 @@ export default function PatientProfilePage() {
             accept="image/*" 
             onChange={() => {
               const newUrl = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
-              document.getElementById('profile-avatar').src = newUrl;
-              const topnavAvatar = document.getElementById('topnav-avatar');
-              if (topnavAvatar) topnavAvatar.src = newUrl;
+              dispatch({ type: 'SET_AVATAR', payload: newUrl });
               showToast('success', 'Photo Updated', 'Your profile picture has been changed.');
             }}
           />
