@@ -47,15 +47,17 @@ export default function LandingHero() {
           <div className="dashboard-preview">
             <div className="preview-sidebar">
               {['Dashboard', 'Find Doctors', 'Appointments', 'Records', 'Profile'].map((l, i) => (
-                <div key={l} className={`preview-sidebar-item ${i === 0 ? 'active' : ''}`}></div>
+                <div key={l} className={`preview-sidebar-item ${i === 0 ? 'active' : ''}`} style={{ fontSize: '8px', padding: '6px', color: i === 0 ? 'var(--primary-600)' : 'var(--text-secondary)' }}>
+                  {l}
+                </div>
               ))}
             </div>
             <div className="preview-main">
               <div className="preview-stats">
-                {['Total Appts', 'Doctors Seen', 'Records'].map(s => (
-                  <div key={s} className="preview-stat">
-                    <div className="skeleton skeleton-text" style={{ width: '60%', height: '10px', marginBottom: '6px' }}></div>
-                    <div className="skeleton skeleton-text" style={{ width: '40%', height: '20px', marginBottom: '0' }}></div>
+                {['Total Appts', 'Doctors Seen', 'Records'].map((s, i) => (
+                  <div key={s} className="preview-stat" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div style={{ fontSize: '10px', color: 'var(--text-secondary)', marginBottom: '4px' }}>{s}</div>
+                    <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'var(--text-primary)' }}>{[24, 5, 12][i]}</div>
                   </div>
                 ))}
               </div>
