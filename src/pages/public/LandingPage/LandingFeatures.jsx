@@ -9,7 +9,7 @@ export default function LandingFeatures() {
   ];
 
   return (
-    <section className="section">
+    <section id="features" className="section">
       <div className="section-header">
         <div className="section-label">Platform Features</div>
         <h2 className="section-title">Everything your clinic needs</h2>

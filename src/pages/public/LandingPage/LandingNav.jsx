@@ -13,9 +13,7 @@ export default function LandingNav() {
           <div className="nav-brand">OMA<span>BS</span></div>
         </div>
         <div className="nav-links">
-          <button className="nav-link">Features</button>
-          <button className="nav-link">How It Works</button>
-          <button className="nav-link">Pricing</button>
+          <button className="nav-link" onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}>Features</button>
           <button className="nav-link" onClick={() => navigate('/design-system')}>Design System</button>
           <button className="nav-link" onClick={() => navigate('/ml-viz')}>ML Demo</button>
         </div>
