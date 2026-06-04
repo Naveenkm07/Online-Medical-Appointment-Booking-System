@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useToast } from '../../context/ToastContext';
+import { upcomingAppointments, pastAppointments } from '../../data/mockAppointments';
 
 export default function MyAppointmentsPage() {
   const { showToast } = useToast();
   const [filter, setFilter] = useState('upcoming');
 
-  const appointments = [
-    { doctor: 'Dr. Priya Mehta', spec: 'Cardiologist', date: 'Jun 5, 2025', time: '10:00 AM', status: 'confirmed', id: 'APT-001' },
-    { doctor: 'Dr. Rajan Nair', spec: 'Dermatologist', date: 'Jun 8, 2025', time: '3:30 PM', status: 'confirmed', id: 'APT-002' },
-    { doctor: 'Dr. S. Rao', spec: 'Neurologist', date: 'Jun 15, 2025', time: '11:00 AM', status: 'pending', id: 'APT-003' },
-  ];
+  const appointments = filter === 'upcoming' 
+    ? upcomingAppointments.map((a, i) => ({ ...a, id: `APT-100${i+1}` })) 
+    : pastAppointments.map((a, i) => ({ ...a, id: `APT-200${i+1}` }));
+
 
   return (
     <>

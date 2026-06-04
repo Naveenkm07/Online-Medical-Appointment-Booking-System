@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { upcomingAppointments } from '../../data/mockAppointments';
 
 export default function PatientHomePage() {
   const navigate = useNavigate();
@@ -8,12 +9,6 @@ export default function PatientHomePage() {
     { label: 'Doctors Consulted', value: '7', change: 'Last: Dr. Mehta', up: null, icon: '👨‍⚕️' },
     { label: 'Health Records', value: '12', change: 'All verified ✓', up: true, icon: '🔗' },
     { label: 'Health Score', value: '87', change: '+5 from last month', up: true, icon: '❤️' },
-  ];
-
-  const upcomingAppts = [
-    { time: '10:00 AM', date: 'Jun 5', doctor: 'Dr. Priya Mehta', spec: 'Cardiologist', status: 'confirmed' },
-    { time: '3:30 PM', date: 'Jun 8', doctor: 'Dr. Rajan Nair', spec: 'Dermatologist', status: 'confirmed' },
-    { time: '11:00 AM', date: 'Jun 15', doctor: 'Dr. S. Rao', spec: 'Neurologist', status: 'pending' },
   ];
 
   const quickActions = [
@@ -74,7 +69,7 @@ export default function PatientHomePage() {
             <button className="btn btn-ghost btn-sm" onClick={() => navigate('/patient/appointments')}>View all →</button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {upcomingAppts.map((a, i) => (
+            {upcomingAppointments.map((a, i) => (
               <div key={i} className="appt-card">
                 <div className="appt-time-block">
                   <div className="appt-time">{a.time}</div>

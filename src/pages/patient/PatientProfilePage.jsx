@@ -23,12 +23,34 @@ export default function PatientProfilePage() {
   return (
     <div style={{ maxWidth: '700px' }}>
       <div className="card mb-6" style={{ textAlign: 'center', padding: '40px' }}>
-        <div className="avatar avatar-2xl" style={{ margin: '0 auto 16px' }}>A</div>
+        <div className="avatar avatar-2xl" style={{ margin: '0 auto 16px', overflow: 'hidden' }}>
+          <img 
+            src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" 
+            alt="Arjun" 
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            id="profile-avatar"
+          />
+        </div>
         <h4 style={{ fontFamily: 'var(--font-heading)' }}>Arjun Sharma</h4>
         <p style={{ color: 'var(--text-secondary)' }}>arjun.sharma@email.com</p>
         <span className="badge badge-primary mt-4">Patient</span>
         <div style={{ marginTop: '16px' }}>
-          <button className="btn btn-secondary btn-sm" onClick={() => showToast('info', 'Upload', 'Choose profile photo')}>📷 Change Photo</button>
+          <input 
+            type="file" 
+            id="avatar-upload" 
+            style={{ display: 'none' }} 
+            accept="image/*" 
+            onChange={() => {
+              const newUrl = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80";
+              document.getElementById('profile-avatar').src = newUrl;
+              const topnavAvatar = document.getElementById('topnav-avatar');
+              if (topnavAvatar) topnavAvatar.src = newUrl;
+              showToast('success', 'Photo Updated', 'Your profile picture has been changed.');
+            }}
+          />
+          <button className="btn btn-secondary btn-sm" onClick={() => document.getElementById('avatar-upload').click()}>
+            📷 Change Photo
+          </button>
         </div>
       </div>
       
