@@ -19,13 +19,23 @@ export default function SecurityDashPage() {
     { icon: '👁️', label: 'Intrusion Detection', value: '3 suspicious IPs flagged today', ok: false },
   ];
 
-  const sessions = [
+  const [sessionList, setSessionList] = useState([
     { user: 'Arjun Sharma', role: 'patient', ip: '122.45.78.12', start: '2h ago', suspicious: false },
     { user: 'Dr. Priya Mehta', role: 'doctor', ip: '103.21.44.89', start: '45min ago', suspicious: false },
     { user: 'Unknown', role: '—', ip: '194.165.0.1', start: '12min ago', suspicious: true },
-  ];
+  ]);
 
   const [chartData] = useState(() => Array(30).fill(0).map(() => 10 + Math.floor(Math.random() * 90)));
+
+  const handleRevokeSuspicious = () => {
+    setSessionList(prev => prev.filter(s => !s.suspicious));
+    showToast('warning', 'Sessions Revoked', 'All suspicious sessions have been revoked.');
+  };
+
+  const handleRevoke = (index) => {
+    setSessionList(prev => prev.filter((_, i) => i !== index));
+    showToast('warning', 'Revoked', 'Session revoked.');
+  };
 
   return (
     <>
@@ -68,21 +78,21 @@ export default function SecurityDashPage() {
       <div className="card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <h6 style={{ fontFamily: 'var(--font-heading)' }}>Active Sessions</h6>
-          <button className="btn btn-danger btn-sm" onClick={() => showToast('warning', 'Sessions Revoked', 'All suspicious sessions have been revoked.')}>Revoke All Suspicious</button>
+          <button className="btn btn-danger btn-sm" onClick={handleRevokeSuspicious}>Revoke All Suspicious</button>
         </div>
         <table className="data-table">
           <thead><tr><th>User</th><th>Role</th><th>IP Address</th><th>Started</th><th>Status</th><th>Action</th></tr></thead>
           <tbody>
-            {sessions.map((s, i) => (
+            {sessionList.length > 0 ? sessionList.map((s, i) => (
               <tr key={i} style={s.suspicious ? { background: 'var(--danger-50)' } : {}}>
                 <td>{s.user}</td>
                 <td><span className={`badge badge-${s.role === 'patient' ? 'teal' : s.role === 'doctor' ? 'primary' : 'danger'}`}>{s.role}</span></td>
                 <td style={{ fontFamily: 'monospace' }}>{s.ip}</td>
                 <td>{s.start}</td>
                 <td><span className={`badge badge-${s.suspicious ? 'danger' : 'success'}`}>{s.suspicious ? '⚠️ Suspicious' : '✓ Normal'}</span></td>
-                <td><button className="btn btn-danger btn-sm" onClick={() => showToast('warning', 'Revoked', 'Session revoked.')}>Revoke</button></td>
+                <td><button className="btn btn-danger btn-sm" onClick={() => handleRevoke(i)}>Revoke</button></td>
               </tr>
-            ))}
+            )) : <tr><td colSpan="6" style={{ textAlign: 'center', padding: '24px', color: 'var(--text-secondary)' }}>No active sessions found.</td></tr>}
           </tbody>
         </table>
       </div>
