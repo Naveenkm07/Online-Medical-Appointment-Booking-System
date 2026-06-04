@@ -10,6 +10,13 @@ const initialState = {
   chatbotOpen: false,
   sidebarCollapsed: false,
   sidebarOpen: false,    // mobile drawer
+  blockchainLogs: JSON.parse(localStorage.getItem('omabs-logs')) || [
+    { block: 48291, ts: '2025-06-03 21:14:32', hash: '0x7a3f...c291', action: 'Record Created', doctor: 'Dr. Mehta' },
+    { block: 48290, ts: '2025-06-03 20:58:11', hash: '0x4b2e...a778', action: 'Record Updated', doctor: 'Dr. Nair' },
+    { block: 48289, ts: '2025-06-03 20:41:05', hash: '0x9d1c...f045', action: 'Record Accessed', doctor: 'Dr. Mehta' },
+    { block: 48288, ts: '2025-06-03 19:32:47', hash: '0x2f8a...b331', action: 'Record Created', doctor: 'Dr. Rao' },
+    { block: 48287, ts: '2025-06-03 18:15:22', hash: '0x8c4d...e912', action: 'Prescription Added', doctor: 'Dr. Nair' },
+  ]
 };
 
 function reducer(state, action) {
@@ -26,6 +33,11 @@ function reducer(state, action) {
       return { ...state, avatar: action.payload };
     case 'SET_ROLE':
       return { ...state, role: action.payload };
+    case 'ADD_LOG': {
+      const newLogs = [action.payload, ...state.blockchainLogs];
+      localStorage.setItem('omabs-logs', JSON.stringify(newLogs));
+      return { ...state, blockchainLogs: newLogs };
+    }
     case 'TOGGLE_CHATBOT':
       return { ...state, chatbotOpen: !state.chatbotOpen };
     case 'SET_CHATBOT':
@@ -35,7 +47,7 @@ function reducer(state, action) {
     case 'TOGGLE_SIDEBAR_MOBILE':
       return { ...state, sidebarOpen: !state.sidebarOpen };
     case 'LOGOUT':
-      return { ...initialState, theme: state.theme };
+      return { ...initialState, theme: state.theme, blockchainLogs: state.blockchainLogs };
     default:
       return state;
   }

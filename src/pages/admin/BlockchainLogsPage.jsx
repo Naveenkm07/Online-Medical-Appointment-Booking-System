@@ -3,13 +3,29 @@ import { useToast } from '../../context/ToastContext';
 export default function BlockchainLogsPage() {
   const { showToast } = useToast();
 
-  const logs = [
-    { block: '48291', ts: '2025-06-03 21:14:32', hash: '0x7a3f...c291', action: 'Record Created', doctor: 'Dr. Mehta' },
-    { block: '48290', ts: '2025-06-03 20:58:11', hash: '0x4b2e...a778', action: 'Record Updated', doctor: 'Dr. Nair' },
-    { block: '48289', ts: '2025-06-03 20:41:05', hash: '0x9d1c...f045', action: 'Record Accessed', doctor: 'Dr. Mehta' },
-    { block: '48288', ts: '2025-06-03 19:32:47', hash: '0x2f8a...b331', action: 'Record Created', doctor: 'Dr. Rao' },
-    { block: '48287', ts: '2025-06-03 18:15:22', hash: '0x8c4d...e912', action: 'Prescription Added', doctor: 'Dr. Nair' },
-  ];
+  const { state } = useApp();
+  const logs = state.blockchainLogs || [];
+
+  const handleExport = () => {
+    // Generate CSV
+    const headers = ['Block #', 'Timestamp', 'Patient Hash', 'Action', 'Doctor', 'Status'];
+    const csvContent = [
+      headers.join(','),
+      ...logs.map(t => `"${t.block}","${t.ts}","${t.hash}","${t.action}","${t.doctor}","Verified"`)
+    ].join('\\n');
+
+    // Trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `omabs_blockchain_logs_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showToast('success', 'Exported!', 'Blockchain logs downloaded as CSV.');
+  };
 
   return (
     <>
@@ -18,7 +34,7 @@ export default function BlockchainLogsPage() {
           <h5 style={{ fontFamily: 'var(--font-heading)' }}>⛓️ Hyperledger Fabric Transaction Log</h5>
           <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>Immutable audit trail of all health record operations. Tamper-proof.</p>
         </div>
-        <button className="btn btn-gradient btn-sm" onClick={() => showToast('success', 'Exported!', 'Blockchain logs exported.')}>📥 Export Logs</button>
+        <button className="btn btn-gradient btn-sm" onClick={handleExport}>📥 Export Logs</button>
       </div>
       
       <div className="grid-3 mb-6">

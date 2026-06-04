@@ -18,6 +18,20 @@ export default function LoginPage() {
 
     dispatch({ type: 'SET_ROLE', payload: role });
     dispatch({ type: 'SET_USER', payload: { name } });
+    
+    // Add real-time blockchain log
+    const hashStr = Math.random().toString(16).slice(2, 10);
+    dispatch({ 
+      type: 'ADD_LOG', 
+      payload: { 
+        block: 48292 + Math.floor(Math.random() * 100), 
+        ts: new Date().toISOString().replace('T', ' ').slice(0, 19), 
+        hash: `0x${hashStr}...${hashStr.slice(-4)}`, 
+        action: `${role.charAt(0).toUpperCase() + role.slice(1)} Login`, 
+        doctor: role === 'doctor' ? name : 'System' 
+      } 
+    });
+
     showToast('success', 'Welcome back!', `Signed in as ${name}`);
 
     setTimeout(() => {
