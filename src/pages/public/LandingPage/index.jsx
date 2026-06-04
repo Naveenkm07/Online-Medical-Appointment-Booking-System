@@ -5,7 +5,6 @@ import LandingFeatures from './LandingFeatures';
 import LandingHowItWorks from './LandingHowItWorks';
 import LandingComparison from './LandingComparison';
 import LandingTestimonials from './LandingTestimonials';
-import LandingPricing from './LandingPricing';
 import LandingFaq from './LandingFaq';
 import LandingContact from './LandingContact';
 import LandingFooter from './LandingFooter';
@@ -20,7 +19,6 @@ export default function LandingPage() {
       <LandingHowItWorks />
       <LandingComparison />
       <LandingTestimonials />
-      <LandingPricing />
       <LandingFaq />
       <LandingContact />
       <LandingFooter />
