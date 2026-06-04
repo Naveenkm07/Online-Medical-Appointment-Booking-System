@@ -1,0 +1,30 @@
+export const mockDoctors = [
+  {
+    id: 1,
+    name: 'Dr. Priya Mehta',
+    specialty: 'Cardiologist',
+    hospital: 'Apollo Hospital, Mumbai',
+    rating: 4.9,
+    reviews: 312,
+    experience: 12,
+    fee: 800,
+    match: 95,
+    available: true,
+    avatar: 'PM',
+    tags: ['Heart Disease', 'Hypertension', 'ECG'],
+  },
+  {
+    id: 2,
+    name: 'Dr. Rajan Nair',
+    specialty: 'Dermatologist',
+    hospital: 'Fortis Clinic, Bangalore',
+    rating: 4.7,
+    reviews: 189,
+    experience: 8,
+    fee: 600,
+    match: 88,
+    available: false,
+    avatar: 'RN',
+    tags: ['Skin Allergies', 'Acne', 'Hair Loss'],
+  }
+];
